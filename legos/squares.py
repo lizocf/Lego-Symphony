@@ -48,6 +48,29 @@ cv2.waitKey(0)
 
 # breakpoint()
 
-height, width = 500, 500
-image = cv2.resize(image,(height,width), interpolation=cv2.INTER_AREA)
+# height, width = 500, 500
+# image = cv2.resize(image,(height,width), interpolation=cv2.INTER_AREA)
+
+x_grid_pts = sorted(x_grid_pts)
+y_grid_pts = sorted(y_grid_pts)
+
+# cv2.rectangle(imgResize,(300,250),(320,270),(255,0,0),2)
+# breakpoint()
+
+roi = image[int(x_grid_pts[0]):int(x_grid_pts[1]), ## continue this for all squares
+            int(y_grid_pts[0]):int(y_grid_pts[1])]
+
+
+# cv2.imshow('image', image)
+cv2.imshow('roi', roi)
+cv2.waitKey(0)
+
+
+## for each roi, see BGR values
+
+## majority BGR values -> volume
+
+## scamp per color
+
+## loop
 
