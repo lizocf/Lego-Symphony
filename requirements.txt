@@ -1,2 +1,7 @@
 scamp
 pyFluidSynth
+opencv-python
+imutils
+python-rtmidi
+pynput
+pillow
