@@ -74,5 +74,8 @@ SORTING CIRCLE COORDS FROM TOP LEFT -> BOTTOM RIGHT
 # breakpoint()
 # print(sort_index(circle_positions))
 
+cv2.rectangle(imgResize,(300,250),(320,270),(255,0,0),2)
+roi = imgResize[255:267, 305: 317]
+
 cv2.imshow('image', image)
 cv2.waitKey(0)
