@@ -118,14 +118,8 @@ guitar = s.new_part("guitar")
 drums = s.new_part("drums")
 print("new instruments created")
     
-def Guitar(note):
-    guitar.play_note(note, 0.8, 1)
 
-def Piano(note):
-    piano.play_note(note, 0.8, 1)
 
-def Drums(note):
-    drums.play_note(note, 0.8, 1)
 
 for x in range(4):
     for y in range(4):
@@ -147,36 +141,77 @@ for x in range(4):
             drum_sound = 36
     
         
-        if (masks[x][y][0] != 0).sum() > 1000:  # check if there is re
-            exec(f"def red_{x}{y}(): Drums({drum_sound})")
+        if (masks[x][y][0] != 0).sum() > 1000:  # check if there is red
+            exec(f"def red_{x}{y}(): drums.play_note({drum_sound}, 0.8, 1)")
         else: exec(f"def red_{x}{y}(): wait({1})")
             # Drums(drum_sound)  # duration set to 1 as an example
             # print("played drum at note: ", note)
 
         if (masks[x][y][1] != 0).sum() > 1000:  # check if there is yellow
-            exec(f"def yellow_{x}{y}(): Guitar({note})")
+            exec(f"def yellow_{x}{y}(): guitar.play_note({note}, 0.8, 1)")
         else: exec(f"def yellow_{x}{y}(): wait({1})")
             # print("played guitar at note:", note)
 
         if (masks[x][y][2] != 0).sum() > 1000:  # check if there is blue
-            exec(f'def blue_{x}{y}(): Piano({note})')
-        else: exec(f"def red_{x}{y}(): wait({1})")
+            exec(f'def blue_{x}{y}(): piano.play_note({note}, 0.8, 1)')
+        else: exec(f"def blue_{x}{y}(): wait({1})")
             # Piano(note)  # duration set to 1 as an example
             # print("played piano at note: ", note)
 
-## some cursed shit
 
 
+while True:
+    s.fork(red_00)
+    s.fork(yellow_00)
+    s.fork(blue_00)
+    s.fork(red_01)
+    s.fork(yellow_01)
+    s.fork(blue_01)
+    s.fork(red_02)
+    s.fork(yellow_02)
+    s.fork(blue_02)
+    s.fork(red_03)
+    s.fork(yellow_03)
+    s.fork(blue_03)
+    s.wait_for_children_to_finish()
+    s.fork(red_10)
+    s.fork(yellow_10)
+    s.fork(blue_10)
+    s.fork(red_11)
+    s.fork(yellow_11)
+    s.fork(blue_11)
+    s.fork(red_12)
+    s.fork(yellow_12)
+    s.fork(blue_12)
+    s.fork(red_13)
+    s.fork(yellow_13)
+    s.fork(blue_13)
+    s.wait_for_children_to_finish()
+    s.fork(red_20)
+    s.fork(yellow_20)
+    s.fork(blue_20)
+    s.fork(red_21)
+    s.fork(yellow_21)
+    s.fork(blue_21)
+    s.fork(red_22)
+    s.fork(yellow_22)
+    s.fork(blue_22)
+    s.fork(red_23)
+    s.fork(yellow_23)
+    s.fork(blue_23)
+    s.wait_for_children_to_finish()
+    s.fork(red_30)
+    s.fork(yellow_30)
+    s.fork(blue_30)
+    s.fork(red_31)
+    s.fork(yellow_31)
+    s.fork(blue_31)
+    s.fork(red_32)
+    s.fork(yellow_32)
+    s.fork(blue_32)
+    s.fork(red_33)
+    s.fork(yellow_33)
+    s.fork(blue_33)
+    s.wait_for_children_to_finish()
 
-
-# s.fork(exec(red[0][0]))
-# s.fork(exec(yellow[0][0]))
-# s.fork(exec(blue[0][0]))
-breakpoint()
-
-''' TO_DO:
-1. Make each roi of squares
-1. majority BGR values -> volume
-2. scamp per color
-3. loop
-'''
+    breakpoint()
