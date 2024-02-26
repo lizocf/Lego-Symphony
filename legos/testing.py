@@ -22,6 +22,18 @@ def play_lego_music(color_map):
     # Iterate through the color map
     for position, color in color_map.items():
         row, _ = position  # Column value is not used for determining the note or drum
+
+        # for drums
+        # 42 = closed hi hat
+        # 45 = low tom
+        # 41 = floor tom
+        # 36 = bass drum
+
+        # chords
+        # C4 = 60
+        # G3 = 55
+        # E3 = 52
+        # C2 = 36
         
         # Determine the note or drum based on the row
         if row < 4:
