@@ -5,3 +5,4 @@ imutils
 python-rtmidi
 pynput
 pillow
+scamp

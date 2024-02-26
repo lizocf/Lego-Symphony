@@ -19,23 +19,23 @@ guitar = s.new_part("guitar")
 recorder = s.new_part("recorder")
 piano = s.new_part("piano")
 
-while True:
-    piano.play_chord(
-        build_chord([4, 3, 4], 4, 65.5),  # 66 -> C
-        1,
-        1,
-        # "staccato" if random.random() < 0.5 else None
-    )
-    piano.play_chord(
-        build_chord([4, 3, 4], 4, 71),  # 71 -> F-ish
-        1,
-        1,
-        # "staccato" if random.random() < 0.5 else None
-    )
-    piano.play_chord(
-        build_chord([3, 4, 3], 4, 74),  # 74 -> A-ish
-        1,
-        1,
-        # "staccato" if random.random() < 0.5 else None
-    )
+# while True:
+#     piano.play_chord(
+#         build_chord([4, 3, 4], 4, 65.5),  # 66 -> C
+#         1,
+#         1,
+#         # "staccato" if random.random() < 0.5 else None
+#     )
+#     piano.play_chord(
+#         build_chord([4, 3, 4], 4, 71),  # 71 -> F-ish
+#         1,
+#         1,
+#         # "staccato" if random.random() < 0.5 else None
+#     )
+#     piano.play_chord(
+#         build_chord([3, 4, 3], 4, 74),  # 74 -> A-ish
+#         1,
+#         1,
+#         # "staccato" if random.random() < 0.5 else None
+#     )
 
