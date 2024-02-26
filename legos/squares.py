@@ -11,6 +11,8 @@ import random
 
 # from music import build_chord
 
+# breakpoint()
+
  # added green dots at corner of lego board
 imgpath = "./legos/legos_green_corner.jpg"     
 img = Image.open(imgpath).convert('RGB')
@@ -95,11 +97,35 @@ blue_cropped = cv2.bitwise_and(image, image, mask=blue_mask)
 cv2.imshow('blue areas', blue_cropped)
 cv2.waitKey(0)
 
-  
 rows, cols, m = (4, 4, 3)
 rois = [[0 for i in range(cols)] for j in range(rows)] # rois[x,y,z], where x,y are squares from top-left
 masks = [[[0 for z in range(m)]for i in range(cols)] for j in range(rows)] # masks[x,y,z] where z is R,Y,B
 
+
+notes = [60,55,52,36]
+octaves = [4,3,3,2]
+drum_sounds = [42,45,41,36]
+
+red = [[0 for i in range(cols)] for j in range(rows)]
+yellow = [[0 for i in range(cols)] for j in range(rows)]
+blue = [[0 for i in range(cols)] for j in range(rows)]
+
+s = Session()
+print("New session created")
+
+piano = s.new_part("piano")
+guitar = s.new_part("guitar")
+drums = s.new_part("drums")
+print("new instruments created")
+    
+def Guitar(note):
+    guitar.play_note(note, 0.8, 1)
+
+def Piano(note):
+    piano.play_note(note, 0.8, 1)
+
+def Drums(note):
+    drums.play_note(note, 0.8, 1)
 
 for x in range(4):
     for y in range(4):
@@ -107,63 +133,46 @@ for x in range(4):
                            (y_grid_pts[y]):(y_grid_pts[y+1])])
         masks[x][y][:] = color_detection(rois[x][y])
         
-        ## INSERT YURI'S CODE HERE ##
-        if (mask[x][y][0] != 0).sum() > 1000:  # check if there is red
-            # make chord
-        if (mask[x][y][1] != 0).sum() > 1000:  # check if there is yellow
-            # make chord
-        if (mask[x][y][2] != 0).sum() > 1000:  # check if there is blue
-            # make chord
-
-
-
-
-# count = 0
-
-breakpoint()
-
-# for j in range(len(x_grid_pts)-1):
-#     for k in range(len(y_grid_pts)-1):
-#         bools = np.logical_and((blue_pos < [x_grid_pts[j+1], y_grid_pts[j+1]]), (blue_pos >= [x_grid_pts[j], y_grid_pts[j]]))
-
-#         x_bools = [bool[0] for bool in bools]
-#         y_bools = [bool[1] for bool in bools]
+        if y == 0:
+            note, octave = 60, 4
+            drum_sound = 42
+        elif y == 1:
+            note, octave = 55, 3
+            drum_sound = 45
+        elif y == 2:
+            note, octave = 52, 3
+            drum_sound = 41
+        else:
+            note, octave = 36, 2
+            drum_sound = 36
+    
         
-    
-#     if [a and b for a, b in zip(x_bools, y_bools)]:
-#         if bool:
-#             print('yas')
-#             count +=1
-            
+        if (masks[x][y][0] != 0).sum() > 1000:  # check if there is re
+            exec(f"def red_{x}{y}(): Drums({drum_sound})")
+        else: exec(f"def red_{x}{y}(): wait({1})")
+            # Drums(drum_sound)  # duration set to 1 as an example
+            # print("played drum at note: ", note)
 
-        # breakpoint()
-        # if bools
+        if (masks[x][y][1] != 0).sum() > 1000:  # check if there is yellow
+            exec(f"def yellow_{x}{y}(): Guitar({note})")
+        else: exec(f"def yellow_{x}{y}(): wait({1})")
+            # print("played guitar at note:", note)
 
-    
-        # breakpoint()
-        # # if np.logical_and(all(x_grid_pts[j] < (list(zip(*blue_pos))[0]) < x_grid_pts[j+1]), (y_grid_pts[k] < (list(zip(*blue_pos))[1]) < y_grid_pts[k])):
-        # #     breakpoint()
-        # breakpoint()
+        if (masks[x][y][2] != 0).sum() > 1000:  # check if there is blue
+            exec(f'def blue_{x}{y}(): Piano({note})')
+        else: exec(f"def red_{x}{y}(): wait({1})")
+            # Piano(note)  # duration set to 1 as an example
+            # print("played piano at note: ", note)
 
-
-# def build_chord(interval_options, num_notes, pitch_center, round_transposition=False):
-#     chord = [0]
-#     while len(chord) < num_notes:
-#         chord.append(chord[-1] + interval_options[0])
-#         chord.append(chord[-1] + interval_options[1])
-#         chord.append(chord[-1] + interval_options[2])
-
-#     transposition = pitch_center - sum(chord) / len(chord)
-#     return [p + transposition for p in chord]
+## some cursed shit
 
 
-# s = Session()
-
-# guitar = s.new_part("guitar")
-# recorder = s.new_part("recorder")
-# piano = s.new_part("piano")
 
 
+# s.fork(exec(red[0][0]))
+# s.fork(exec(yellow[0][0]))
+# s.fork(exec(blue[0][0]))
+breakpoint()
 
 ''' TO_DO:
 1. Make each roi of squares
